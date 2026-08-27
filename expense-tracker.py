@@ -34,9 +34,20 @@ def getValidAmount():
 
 
 def add_expense():
-    name = input("enter product name: ")
+    while True:
+        name = input("enter product name: ")
+        if name == "":
+            print("name should not be empty")
+        else:
+            break
     amount = getValidAmount()
-    category = input("enter your category: ")
+    while True:
+        category = input("enter your category: ")
+        if category == "":
+            print("name should not be empty")
+        else:
+            break
+
     date = datetime.datetime.now().strftime("%d-%m-%Y")
     expenses.append(
         {"name": name, "amount": amount, "category": category, "date": date}
@@ -60,11 +71,11 @@ def getValidChoice(index):
 
 
 def view_all_expense():
-    print(f"{"Name":<15}{"Amount":<10}{"Category":<20}{"date":<12}")
-    print("=" * 57)
+    print(f"{"Name":<15}{"Amount":<13}{"Category":<20}{"date":<12}")
+    print("=" * 58)
     for value in expenses:
         print(
-            f"{value["name"]:<15}{value["amount"]:<10}{value["category"]:<20}{value["date"]:<12}"
+            f"{value["name"]:<15}{value["amount"]:<13.2f}{value["category"]:<20}{value["date"]:<12}"
         )
     time.sleep(0.5)
 
