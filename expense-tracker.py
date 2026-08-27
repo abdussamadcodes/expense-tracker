@@ -7,10 +7,12 @@ expenses = []
 
 def load_data():
     with open("data.json") as f:
-        data = f.read()
-        data = json.loads(data)
-        expenses = data[:]
-    print(expenses)
+        if not f.read().strip():
+            expenses[:] = []
+        else:
+            f.seek(0)
+            value = json.load(f)
+            expenses[:] = value
 
 
 def store_data():
@@ -56,31 +58,35 @@ def getValidChoice(index):
                 print(f"wrong choice. input should be between 1 to {index-1}")
 
 
-# def mainMenu():
-#     while True:
-#         load_data()
-#         print("===== Expense Tracker =====")
-#         print("""1.Add expense
-# 2.View all expense
-# 3.Search expenses
-# 4.Filter by category
-# 5.Show total spending
-# 6.Export data
-# 7.Exit
-# """)
-#         choice = getValidChoice(8)
-#         match choice:
-#             case 1:
-#                 pass
-#             case 2:
-#                 pass
-#             case 3:
-#                 pass
-#             case 4:
-#                 pass
-#             case 5:
-#                 pass
-#             case 6:
-#                 pass
-#             case 7:
-#                 pass
+def mainMenu():
+    while True:
+        load_data()
+        print("===== Expense Tracker =====")
+        print("""1.Add expense
+2.View all expense
+3.Search expenses
+4.Filter by category
+5.Show total spending
+6.Export data
+7.Exit
+""")
+        load_data()
+        choice = getValidChoice(8)
+        match choice:
+            case 1:
+                add_expense()
+            case 2:
+                pass
+            case 3:
+                pass
+            case 4:
+                pass
+            case 5:
+                pass
+            case 6:
+                pass
+            case 7:
+                pass
+
+
+mainMenu()
