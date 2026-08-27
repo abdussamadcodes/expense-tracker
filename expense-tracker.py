@@ -34,7 +34,7 @@ def getValidAmount():
 
 
 def add_expense():
-    name = input("enter your name: ")
+    name = input("enter product name: ")
     amount = getValidAmount()
     category = input("enter your category: ")
     date = datetime.datetime.now().strftime("%d-%m-%Y")
@@ -42,6 +42,7 @@ def add_expense():
         {"name": name, "amount": amount, "category": category, "date": date}
     )
     store_data()
+    time.sleep(0.5)
 
 
 def getValidChoice(index):
@@ -58,25 +59,36 @@ def getValidChoice(index):
                 print(f"wrong choice. input should be between 1 to {index-1}")
 
 
+def view_all_expense():
+    print(f"{"Name":<15}{"Amount":<10}{"Category":<20}{"date":<12}")
+    print("=" * 57)
+    for value in expenses:
+        print(
+            f"{value["name"]:<15}{value["amount"]:<10}{value["category"]:<20}{value["date"]:<12}"
+        )
+    time.sleep(0.5)
+
+
 def mainMenu():
     while True:
         load_data()
+        print("")
         print("===== Expense Tracker =====")
+        print("")
         print("""1.Add expense
 2.View all expense
 3.Search expenses
 4.Filter by category
 5.Show total spending
 6.Export data
-7.Exit
-""")
+7.Exit""")
         load_data()
         choice = getValidChoice(8)
         match choice:
             case 1:
                 add_expense()
             case 2:
-                pass
+                view_all_expense()
             case 3:
                 pass
             case 4:

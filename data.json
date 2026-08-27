@@ -1,8 +1,20 @@
 [
     {
-        "name": "rahim",
+        "name": "book",
         "amount": 200,
         "category": "study",
+        "date": "27-08-2026"
+    },
+    {
+        "name": "pen",
+        "amount": 20,
+        "category": "study",
+        "date": "27-08-2026"
+    },
+    {
+        "name": "movie ticket",
+        "amount": 300,
+        "category": "entertaiment",
         "date": "27-08-2026"
     }
 ]
