@@ -154,6 +154,13 @@ def search_by_date(ch: str):
     time.sleep(0.5)
 
 
+def show_total():
+    sum = 0
+    for expense in expenses:
+        sum += expense["amount"]
+    print(f"The total amount is {sum}")
+
+
 def search():
     print("""1.Search expenses before a  specific date
 2.Search expenses after a specific date
@@ -196,7 +203,7 @@ def mainMenu():
             case 4:
                 filter_by_category()
             case 5:
-                pass
+                show_total()
             case 6:
                 pass
             case 7:
