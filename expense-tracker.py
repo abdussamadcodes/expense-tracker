@@ -189,10 +189,9 @@ def mainMenu():
 3.Search expenses
 4.Filter by category
 5.Show total spending
-6.Export data
-7.Exit""")
+6.Exit""")
         load_data()
-        choice = getValidChoice(8)
+        choice = getValidChoice(7)
         match choice:
             case 1:
                 add_expense()
@@ -205,9 +204,7 @@ def mainMenu():
             case 5:
                 show_total()
             case 6:
-                pass
-            case 7:
-                pass
+                exit()
 
 
 mainMenu()
