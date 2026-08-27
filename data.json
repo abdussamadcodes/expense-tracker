@@ -16,5 +16,11 @@
         "amount": 300,
         "category": "entertaiment",
         "date": "27-08-2026"
+    },
+    {
+        "name": "mobile",
+        "amount": 15000,
+        "category": "personal use",
+        "date": "27-08-2026"
     }
 ]

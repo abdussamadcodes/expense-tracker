@@ -56,7 +56,7 @@ def add_expense():
     time.sleep(0.5)
 
 
-def getValidChoice(index):
+def getValidChoice(index: int):
     choice = int()
     while True:
         try:
@@ -73,11 +73,82 @@ def getValidChoice(index):
 def view_all_expense():
     print(f"{"Name":<15}{"Amount":<13}{"Category":<20}{"date":<12}")
     print("=" * 58)
-    for value in expenses:
+    for expense in expenses:
         print(
-            f"{value["name"]:<15}{value["amount"]:<13.2f}{value["category"]:<20}{value["date"]:<12}"
+            f"{expense["name"]:<15}{expense["amount"]:<13.2f}{expense["category"]:<20}{expense["date"]:<12}"
         )
     time.sleep(0.5)
+
+
+def getValidDate():
+    while True:
+        try:
+            dd, mm, yyyy = map(int, input("enter the date like dd-mm-yyyy: ").split())
+        except:
+            print("input should be int")
+        else:
+            try:
+                date = datetime.datetime(yyyy, mm, dd).strftime("%d-%m-%Y")
+            except:
+                print(
+                    "Invalid date input.Like month is between 1-12 and day is between 1-31 except february"
+                )
+            else:
+                return date
+
+
+def search_by_date(ch: str):
+    date = getValidDate()
+    print(f"{"Name":<15}{"Amount":<13}{"Category":<20}{"date":<12}")
+    print("=" * 58)
+    for expense in expenses:
+        if ch == ">":
+            if expense["date"] >= date:
+                print(
+                    f"{expense["name"]:<15}{expense["amount"]:<13.2f}{expense["category"]:<20}{expense["date"]:<12}"
+                )
+        else:
+            print(
+                f"{expense["name"]:<15}{expense["amount"]:<13.2f}{expense["category"]:<20}{expense["date"]:<12}"
+            )
+    time.sleep(0.5)
+
+
+def filter_by_category():
+    uniq_category = set()
+    for expense in expenses:
+        uniq_category.add(expense["category"])
+    i = 1
+    for expense in uniq_category:
+        print(f"{i}.", expense, sep="")
+        i += 1
+    category = list(uniq_category)
+    choice = getValidChoice(len(category) + 1)
+    print(f"{"Name":<15}{"Amount":<13}{"Category":<20}{"date":<12}")
+    print("=" * 58)
+    for expense in expenses:
+        if expense["category"] == category[choice - 1]:
+            print(
+                f"{expense["name"]:<15}{expense["amount"]:<13.2f}{expense["category"]:<20}{expense["date"]:<12}"
+            )
+    time.sleep(0.5)
+
+
+def search():
+    print("""1.Search expenses before a  specific date
+2.Search expenses after a specific date
+3.Search expenses below or equal the amount
+4.Search expenses above or equal the amount""")
+    choice = getValidChoice(5)
+    match choice:
+        case 1:
+            search_by_date("<")
+        case 2:
+            search_by_date(">")
+        case 3:
+            pass
+        case 4:
+            pass
 
 
 def mainMenu():
@@ -101,9 +172,9 @@ def mainMenu():
             case 2:
                 view_all_expense()
             case 3:
-                pass
+                search()
             case 4:
-                pass
+                filter_by_category()
             case 5:
                 pass
             case 6:
