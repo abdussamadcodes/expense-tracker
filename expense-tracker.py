@@ -148,9 +148,10 @@ def search_by_date(ch: str):
                     f"{expense["name"]:<15}{expense["amount"]:<13.2f}{expense["category"]:<20}{expense["date"]:<12}"
                 )
         else:
-            print(
-                f"{expense["name"]:<15}{expense["amount"]:<13.2f}{expense["category"]:<20}{expense["date"]:<12}"
-            )
+            if expense_time <= search_date:
+                print(
+                    f"{expense["name"]:<15}{expense["amount"]:<13.2f}{expense["category"]:<20}{expense["date"]:<12}"
+                )
     time.sleep(0.5)
 
 
