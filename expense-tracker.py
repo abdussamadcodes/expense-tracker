@@ -71,11 +71,13 @@ def getValidChoice(index: int):
 
 
 def view_all_expense():
-    print(f"{"Name":<15}{"Amount":<13}{"Category":<20}{"date":<12}")
-    print("=" * 58)
+    print(f"{"#":<5}{"Name":<15}{"Amount":<13}{"Category":<20}{"date":<12}")
+    print("=" * 63)
+    i=0
     for expense in expenses:
+        i+=1
         print(
-            f"{expense["name"]:<15}{expense["amount"]:<13.2f}{expense["category"]:<20}{expense["date"]:<12}"
+            f"{i:<5}{expense["name"]:<15}{expense["amount"]:<13.2f}{expense["category"]:<20}{expense["date"]:<12}"
         )
     time.sleep(0.5)
 
@@ -154,6 +156,11 @@ def search_by_date(ch: str):
                 )
     time.sleep(0.5)
 
+def delete_expense():
+    view_all_expense()
+    choice=getValidChoice(len(expenses)+1)
+    expenses.pop(choice-1)
+    store_data()
 
 def show_total():
     sum = 0
@@ -190,9 +197,10 @@ def mainMenu():
 3.Search expenses
 4.Filter by category
 5.Show total spending
-6.Exit""")
+6.Delete Expense
+7.Exit""")
         load_data()
-        choice = getValidChoice(7)
+        choice = getValidChoice(8)
         match choice:
             case 1:
                 add_expense()
@@ -205,7 +213,9 @@ def mainMenu():
             case 5:
                 show_total()
             case 6:
-                exit()
+                delete_expense()
+            case 7:
+                pass
 
 
 mainMenu()
