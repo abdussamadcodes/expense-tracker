@@ -71,13 +71,13 @@ def getValidChoice(index: int):
 
 
 def view_all_expense():
-    print(f"{"#":<5}{"Name":<15}{"Amount":<13}{"Category":<20}{"date":<12}")
-    print("=" * 63)
+    print(f"{"#":<5}{"Name":<15}{"Amount":<13}{"Category":<25}{"date":<12}")
+    print("=" * 68)
     i=0
     for expense in expenses:
         i+=1
         print(
-            f"{i:<5}{expense["name"]:<15}{expense["amount"]:<13.2f}{expense["category"]:<20}{expense["date"]:<12}"
+            f"{i:<5}{expense["name"]:<15}{expense["amount"]:<13.2f}{expense["category"]:<25}{expense["date"]:<12}"
         )
     time.sleep(0.5)
 
@@ -161,6 +161,66 @@ def delete_expense():
     choice=getValidChoice(len(expenses)+1)
     expenses.pop(choice-1)
     store_data()
+def edit_expense():
+    view_all_expense()
+    print("enter the number to edit corresponding expense entry:")
+    choice=getValidChoice(len(expenses)+1)
+    while True:
+        print("1.To edit whole expense entry")
+        print("2.To edit only name of selected entry")
+        print("3.To edit only amount of selected entry")
+        print("4.To edit only category of selected entry")
+        choose=getValidChoice(5)
+        match choose:
+            case 1:
+                while True:
+                        name = input("enter product name: ")
+                        if name == "":
+                            print("name should not be empty")
+                        else:
+                            break
+                amount = getValidAmount()
+                while True:
+                        category = input("enter your category: ")
+                        if category == "":
+                            print("name should not be empty")
+                        else:
+                            break
+                
+                date = datetime.datetime.now().strftime("%d-%m-%Y")
+                expenses[choice-1]={"name":name,"amount":amount,"category":category,"date":date}
+                store_data()
+                break
+            case 2:
+                while True:
+                    name = input("enter product name: ")
+                    if name == "":
+                        print("name should not be empty")
+                    else:
+                        break
+                expenses[choice-1]["name"]=name
+                store_data()
+                break
+            case 3:
+                amount=getValidAmount()
+                expenses[choice-1]["amount"]=amount
+                store_data()
+                break
+            case 4:
+                    while True:
+                        category = input("enter your category: ")
+                        if category == "":
+                            print("name should not be empty")
+                        else:
+                            break
+                    expenses[choice-1]["category"]=category
+                    store_data()
+                    break
+
+
+
+
+
 
 def show_total():
     sum = 0
@@ -198,9 +258,10 @@ def mainMenu():
 4.Filter by category
 5.Show total spending
 6.Delete Expense
-7.Exit""")
+7.Edit an expense
+8.Exit""")
         load_data()
-        choice = getValidChoice(8)
+        choice = getValidChoice(9)
         match choice:
             case 1:
                 add_expense()
@@ -215,7 +276,9 @@ def mainMenu():
             case 6:
                 delete_expense()
             case 7:
-                pass
+                edit_expense()
+            case 8:
+                exit()
 
 
 mainMenu()

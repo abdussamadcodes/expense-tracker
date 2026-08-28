@@ -1,7 +1,7 @@
 [
     {
-        "name": "pen",
-        "amount": 20,
+        "name": "color pen",
+        "amount": 30,
         "category": "study",
         "date": "27-08-2026"
     },
@@ -14,7 +14,7 @@
     {
         "name": "mobile",
         "amount": 15000,
-        "category": "personal use",
+        "category": "personal use and study",
         "date": "27-08-2026"
     },
     {
