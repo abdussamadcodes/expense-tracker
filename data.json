@@ -3,7 +3,7 @@
         "name": "color pen",
         "amount": 30,
         "category": "study",
-        "date": "27-08-2026"
+        "date": "24-08-2026"
     },
     {
         "name": "movie ticket",
@@ -19,6 +19,12 @@
     },
     {
         "name": "apple",
+        "amount": 80,
+        "category": "food",
+        "date": "29-08-2026"
+    },
+    {
+        "name": "mango",
         "amount": 80,
         "category": "food",
         "date": "29-08-2026"

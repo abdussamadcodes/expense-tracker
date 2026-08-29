@@ -2,6 +2,7 @@ import json
 import datetime
 import time
 import get_valid as get
+import search
 expenses = []
 
 
@@ -74,43 +75,6 @@ def filter_by_category():
             )
     time.sleep(0.5)
 
-
-def search_by_amount(ch: str):
-    amount = get.getValidAmount()
-    print(f"{"Name":<15}{"Amount":<13}{"Category":<20}{"date":<12}")
-    print("=" * 58)
-    for expense in expenses:
-        if ch == ">":
-            if expense["amount"] >= amount:
-                print(
-                    f"{expense["name"]:<15}{expense["amount"]:<13.2f}{expense["category"]:<20}{expense["date"]:<12}"
-                )
-        else:
-            if expense["amount"] <= amount:
-                print(
-                    f"{expense["name"]:<15}{expense["amount"]:<13.2f}{expense["category"]:<20}{expense["date"]:<12}"
-                )
-    time.sleep(0.5)
-
-
-def search_by_date(ch: str):
-    date = get.getValidDate()
-    search_date = datetime.datetime.strptime(date, "%d-%m-%Y")
-    print(f"{"Name":<15}{"Amount":<13}{"Category":<20}{"date":<12}")
-    print("=" * 58)
-    for expense in expenses:
-        expense_time = datetime.datetime.strptime(expense["date"], "%d-%m-%Y")
-        if ch == ">":
-            if expense_time >= search_date:
-                print(
-                    f"{expense["name"]:<15}{expense["amount"]:<13.2f}{expense["category"]:<20}{expense["date"]:<12}"
-                )
-        else:
-            if expense_time <= search_date:
-                print(
-                    f"{expense["name"]:<15}{expense["amount"]:<13.2f}{expense["category"]:<20}{expense["date"]:<12}"
-                )
-    time.sleep(0.5)
 
 def delete_expense():
     view_all_expense()
@@ -185,7 +149,7 @@ def show_total():
     print(f"The total amount is {sum}")
 
 
-def search():
+def search_menu():
     print("""1.Search expenses before a  specific date
 2.Search expenses after a specific date
 3.Search expenses below or equal the amount
@@ -193,13 +157,13 @@ def search():
     choice = get.getValidChoice(5)
     match choice:
         case 1:
-            search_by_date("<")
+            search.search_by_date("<",expenses)
         case 2:
-            search_by_date(">")
+            search.search_by_date(">",expenses)
         case 3:
-            search_by_amount("<")
+            search.search_by_amount("<",expenses)
         case 4:
-            search_by_amount(">")
+            search.search_by_amount(">",expenses)
 
 
 def mainMenu():
@@ -224,7 +188,7 @@ def mainMenu():
             case 2:
                 view_all_expense()
             case 3:
-                search()
+                search_menu()
             case 4:
                 filter_by_category()
             case 5:
