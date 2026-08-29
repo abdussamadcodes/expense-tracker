@@ -1,7 +1,7 @@
 import json
 import datetime
 import time
-
+import get_valid as get
 expenses = []
 
 
@@ -20,19 +20,6 @@ def store_data():
         json.dump(expenses, f, indent=4)
 
 
-def getValidAmount():
-    while True:
-        try:
-            amount = int(input("enter the price: "))
-        except:
-            print("price should be int")
-        else:
-            if amount > 0:
-                return amount
-            else:
-                print("price should be greater than 0")
-
-
 def add_expense():
     while True:
         name = input("enter product name: ")
@@ -40,7 +27,7 @@ def add_expense():
             print("name should not be empty")
         else:
             break
-    amount = getValidAmount()
+    amount = get.getValidAmount()
     while True:
         category = input("enter your category: ")
         if category == "":
@@ -56,20 +43,6 @@ def add_expense():
     time.sleep(0.5)
 
 
-def getValidChoice(index: int):
-    choice = int()
-    while True:
-        try:
-            choice = int(input("enter your choice: "))
-        except:
-            print("wrong choice. input should be string.")
-        else:
-            if choice in range(1, index):
-                return choice
-            else:
-                print(f"wrong choice. input should be between 1 to {index-1}")
-
-
 def view_all_expense():
     print(f"{"#":<5}{"Name":<15}{"Amount":<13}{"Category":<25}{"date":<12}")
     print("=" * 68)
@@ -82,23 +55,6 @@ def view_all_expense():
     time.sleep(0.5)
 
 
-def getValidDate():
-    while True:
-        try:
-            dd, mm, yyyy = map(int, input("enter the date like dd-mm-yyyy: ").split())
-        except:
-            print("input should be int")
-        else:
-            try:
-                date = datetime.datetime(yyyy, mm, dd).strftime("%d-%m-%Y")
-            except:
-                print(
-                    "Invalid date input.Like month is between 1-12 and day is between 1-31 except february"
-                )
-            else:
-                return date
-
-
 def filter_by_category():
     uniq_category = set()
     for expense in expenses:
@@ -108,7 +64,7 @@ def filter_by_category():
         print(f"{i}.", expense, sep="")
         i += 1
     category = list(uniq_category)
-    choice = getValidChoice(len(category) + 1)
+    choice = get.getValidChoice(len(category) + 1)
     print(f"{"Name":<15}{"Amount":<13}{"Category":<20}{"date":<12}")
     print("=" * 58)
     for expense in expenses:
@@ -120,7 +76,7 @@ def filter_by_category():
 
 
 def search_by_amount(ch: str):
-    amount = getValidAmount()
+    amount = get.getValidAmount()
     print(f"{"Name":<15}{"Amount":<13}{"Category":<20}{"date":<12}")
     print("=" * 58)
     for expense in expenses:
@@ -138,7 +94,7 @@ def search_by_amount(ch: str):
 
 
 def search_by_date(ch: str):
-    date = getValidDate()
+    date = get.getValidDate()
     search_date = datetime.datetime.strptime(date, "%d-%m-%Y")
     print(f"{"Name":<15}{"Amount":<13}{"Category":<20}{"date":<12}")
     print("=" * 58)
@@ -158,19 +114,19 @@ def search_by_date(ch: str):
 
 def delete_expense():
     view_all_expense()
-    choice=getValidChoice(len(expenses)+1)
+    choice=get.getValidChoice(len(expenses)+1)
     expenses.pop(choice-1)
     store_data()
 def edit_expense():
     view_all_expense()
     print("enter the number to edit corresponding expense entry:")
-    choice=getValidChoice(len(expenses)+1)
+    choice=get.getValidChoice(len(expenses)+1)
     while True:
         print("1.To edit whole expense entry")
         print("2.To edit only name of selected entry")
         print("3.To edit only amount of selected entry")
         print("4.To edit only category of selected entry")
-        choose=getValidChoice(5)
+        choose=get.getValidChoice(5)
         match choose:
             case 1:
                 while True:
@@ -179,7 +135,7 @@ def edit_expense():
                             print("name should not be empty")
                         else:
                             break
-                amount = getValidAmount()
+                amount = get.getValidAmount()
                 while True:
                         category = input("enter your category: ")
                         if category == "":
@@ -202,7 +158,7 @@ def edit_expense():
                 store_data()
                 break
             case 3:
-                amount=getValidAmount()
+                amount=get.getValidAmount()
                 expenses[choice-1]["amount"]=amount
                 store_data()
                 break
@@ -234,7 +190,7 @@ def search():
 2.Search expenses after a specific date
 3.Search expenses below or equal the amount
 4.Search expenses above or equal the amount""")
-    choice = getValidChoice(5)
+    choice = get.getValidChoice(5)
     match choice:
         case 1:
             search_by_date("<")
@@ -261,7 +217,7 @@ def mainMenu():
 7.Edit an expense
 8.Exit""")
         load_data()
-        choice = getValidChoice(9)
+        choice = get.getValidChoice(9)
         match choice:
             case 1:
                 add_expense()
